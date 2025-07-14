@@ -1,0 +1,42 @@
+create table Bank_Accounts( 
+    account_id number PRIMARY KEY,
+    bank_acc_no varchar(30) UNIQUE,
+    recon_type varchar(30),
+    cat_code varchar(20),
+    sub_acc_no varchar(30),
+    status varchar(10) DEFAULT 'ACTIVE'
+);
+
+create table Item (
+    item_id number PRIMARY KEY,
+    bank_acc_no varchar(30),
+    txn_reference varchar(50),
+    txn_amount Decimal(12,4),
+    drocr char(1),
+    txn_ccy char(3),
+    stmt_date Date,
+    system_entry_date TIMESTAMP,
+    value_date Date,
+    item_type varchar(20),
+    txn_stock_code varchar(12),
+    stock_id Number,
+    quantity decimal(12,4),
+    price decimal(12,4),
+    foreign key (bank_acc_no) references Bank_Accounts (bank_acc_no)
+);
+
+create table Asset_Register(
+    stock_id NUMBER PRIMARY KEY,
+    stock_code varchar(12) UNIQUE,
+    description varchar(100),
+    asset_type varchar(20)
+);
+
+Create table closing_balances(
+    cb_id NUMBER PRIMARY KEY,
+    bank_acc_no varchar(30),
+    cbal_date Date,
+    cbal_amount Decimal(12,4),
+    currency_code char(3),
+    foreign key (bank_acc_no) references Bank_Accounts (bank_acc_no)
+);
